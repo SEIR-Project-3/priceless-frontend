@@ -9,7 +9,7 @@ function Listings(props) {
 
 	// const getListing = async () => {
 	// 	try {
-	// 		const res = await axios.get(`${API_URL}/items`);
+	// 		const res = await axios.get(`${API_URL}/api/items`);
 	// 		setListings(res.data);
 	// 	} catch (error) {
 	// 		console.log(error);
@@ -23,15 +23,15 @@ function Listings(props) {
 	// 			setLoading(false);
 	// 		}
 	// 	}, 5000);
-		// the getListing() function is invoked to make our API call
-		// getListing();
+	// the getListing() function is invoked to make our API call
+	// getListing();
 
-		// return () => clearTimeout(handleLoadingTimeout);
+	// return () => clearTimeout(handleLoadingTimeout);
 	// }, []);0
 
 	// UX/UI considerations to provide feedback to the user
 	// if (loading && !listings.length) {
-		// placeholder can do something more dynamic later
+	// placeholder can do something more dynamic later
 	// 	return <h2>Loading...</h2>;
 	// }
 	// if (!loading && !listings.length) {
