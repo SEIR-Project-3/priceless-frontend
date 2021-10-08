@@ -1,6 +1,3 @@
-const API_URL =
-	window.location.hostname === 'localhost'
-		? 'http://localhost:7000'
-		: 'deployed heroku address';
+const API_URL = 'https://priceless-backend.herokuapp.com';
 
 export default API_URL;
