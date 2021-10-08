@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 export const LoginForm = ({ setLoggedIn }) => {
-	const { history } = useHistory();
+	const history = useHistory();
 	const [username, setUserName] = useState();
 	const [password, setPassword] = useState();
 
