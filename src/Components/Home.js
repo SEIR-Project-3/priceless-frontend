@@ -5,7 +5,7 @@ import API_URL from '../config';
 
 function Listings(props) {
 	const [listings, setListings] = useState();
-	const [loading, setLoading] = useState(true);
+	// const [loading, setLoading] = useState(true);
 
 	const getListing = async () => {
 		try {
@@ -34,15 +34,16 @@ function Listings(props) {
 	// }, []);
 
 	// UX/UI considerations to provide feedback to the user
-	// if (loading && !listings.length) {
-	// placeholder can do something more dynamic later
-	// return <h2>Loading...</h2>;
-	// }
+	if (!listings) {
+		// placeholder can do something more dynamic later
+		return <h2>Loading...</h2>;
+	}
 	// if (!loading && !listings.length) {
 	// return <h2>Oops, something went wrong. Please try again Later!</h2>;
 	// }
 
 	// Our results are displayed below
+
 	return (
 		<div>
 			<div>
