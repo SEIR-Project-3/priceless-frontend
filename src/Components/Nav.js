@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
-function Nav() {
+function Nav({loggedIn}) {
 	return (
 		<div>
 			<nav>
@@ -14,6 +14,11 @@ function Nav() {
 				<Link to='/resources'>
 					<p>Resources</p>
 				</Link>
+                {loggedIn &&
+				<Link to='/dashboard'>
+					<p>Dashboard</p>
+				</Link>
+                }
 				<Link to='/login'>
 					<p>Login</p>
 				</Link>

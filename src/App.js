@@ -6,6 +6,7 @@ import Home from './Components/Home';
 import About from './Components/About';
 import Resources from './Components/Resources';
 import Login from './Components/Login';
+import Dashboard from './Components/Dashboard';
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(
@@ -13,11 +14,12 @@ function App() {
 	);
 	return (
 		<div>
-			<Nav />
+			<Nav loggedIn={loggedIn} />
 			<main>
 				<Route exact path='/home' component={Home} />
 				<Route exact path='/about' component={About} />
 				<Route exact path='/resources' component={Resources} />
+				<Route exact path='/dashboard' component={Dashboard} />
 				<Route
 					exact
 					path='/login'
