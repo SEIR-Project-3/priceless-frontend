@@ -17,7 +17,10 @@ function Nav({ loggedIn, setLoggedIn }) {
 				<Link to='/resources'>
 					<p>Resources</p>
 				</Link>
-				{loggedIn ? 
+				<Link to='/newpost'>
+					<p>Post Item</p>
+				</Link>
+				{loggedIn ? (
 					<>
 						<Link to='/dashboard'>
 							<p>Dashboard</p>
@@ -26,7 +29,7 @@ function Nav({ loggedIn, setLoggedIn }) {
 							<p>Log Out</p>
 						</button>
 					</>
-				:
+				) : (
 					<>
 						<Link to='/signup'>
 							<p>Sign Up</p>
@@ -35,7 +38,7 @@ function Nav({ loggedIn, setLoggedIn }) {
 							<p>Log In</p>
 						</Link>
 					</>
-				}
+				)}
 			</nav>
 		</div>
 	);
