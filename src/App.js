@@ -7,6 +7,7 @@ import About from './Components/About';
 import Resources from './Components/Resources';
 import Login from './Components/Authentication/Login';
 import Dashboard from './Components/Dashboard';
+import Preferences from './Components/Preferences';
 import { SignUpForm } from './Components/Authentication/SignUpForm';
 
 function App() {
@@ -15,12 +16,13 @@ function App() {
 	);
 	return (
 		<div>
-			<Nav loggedIn={loggedIn} />
+			<Nav loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 			<main>
 				<Route exact path='/home' component={Home} />
 				<Route exact path='/about' component={About} />
 				<Route exact path='/resources' component={Resources} />
 				<Route exact path='/dashboard' component={Dashboard} />
+				<Route exact path='/dashboard/preferences' component={Preferences} />
 				<Route exact path='/signup' component={SignUpForm} />
 				<Route
 					exact
