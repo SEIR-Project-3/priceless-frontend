@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API_URL from '../config';
+import API_URL from '../../config';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 

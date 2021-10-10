@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
-function Nav({loggedIn}) {
+function Nav({ loggedIn }) {
 	return (
 		<div>
 			<nav>
@@ -14,14 +14,23 @@ function Nav({loggedIn}) {
 				<Link to='/resources'>
 					<p>Resources</p>
 				</Link>
-                {loggedIn &&
-				<Link to='/dashboard'>
-					<p>Dashboard</p>
+				{loggedIn && (
+					<Link to='/dashboard'>
+						<p>Dashboard</p>
+					</Link>
+				)}
+				<Link to='/signup'>
+					<p>Sign Up</p>
 				</Link>
-                }
-				<Link to='/login'>
-					<p>Login</p>
-				</Link>
+				{loggedIn ? 
+					<Link to='/logout'>
+						<p>Log Out</p>
+					</Link>
+					:
+					<Link to='/login'>
+						<p>Log In</p>
+					</Link>
+				}
 			</nav>
 		</div>
 	);
