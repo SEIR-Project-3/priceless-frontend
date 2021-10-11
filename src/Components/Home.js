@@ -46,9 +46,9 @@ function Listings(props) {
 
 	return (
 		<div>
-			<div>
+			<div className='listings'>
 				{listings.map((item) => (
-					<Listing item={item} />
+					<Listing item={item}/>
 				))}
 			</div>
 		</div>
