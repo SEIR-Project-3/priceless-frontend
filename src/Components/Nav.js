@@ -1,40 +1,45 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Nav({ loggedIn, setLoggedIn }) {
+	
+	const history = useHistory();
 
-	const logOut = () => setLoggedIn(false);
+	const logOut = () => {
+		setLoggedIn(false);
+		history.push('/home');
+	}
 
 	return (
 		<div>
 			<nav>
-				<Link to='/home'>
+				<Link to='/home' className='navLink'>
 					<p>Home</p>
 				</Link>
-				<Link to='/about'>
+				<Link to='/about' className='navLink'>
 					<p>About</p>
 				</Link>
-				<Link to='/resources'>
+				<Link to='/resources' className='navLink'>
 					<p>Resources</p>
-				</Link>
-				<Link to='/newpost'>
-					<p>Post Item</p>
 				</Link>
 				{loggedIn ? (
 					<>
-						<Link to='/dashboard'>
+						<Link to='/dashboard' className='navLink'>
 							<p>Dashboard</p>
 						</Link>
-						<button onClick={logOut}>
+				<Link to='/newpost' className='navLink'>
+					<p>Post Item</p>
+				</Link>
+						<button onClick={logOut}  className='logOutBtn'>
 							<p>Log Out</p>
 						</button>
 					</>
 				) : (
 					<>
-						<Link to='/signup'>
+						<Link to='/signup' className='navLink'>
 							<p>Sign Up</p>
 						</Link>
-						<Link to='/login'>
+						<Link to='/login' className='navLink'>
 							<p>Log In</p>
 						</Link>
 					</>
