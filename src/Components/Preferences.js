@@ -1,0 +1,125 @@
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import API_URL from '../config';
+
+function Preferences({ match, users }) {
+
+    const [username, setUserName] = useState();
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+    const [cPass, setCPass] = useState();
+
+    const [modal, setModal] = useState(null);
+
+    console.log(match);
+
+    const history = useHistory();
+
+    const openEdit = () => {
+        setModal(true);
+    };
+
+    const closeEdit = () => {
+        setModal(false);
+    };
+
+    // function to capture username input
+	const handleUserNameField = (e) => {
+		setUserName(e.target.value);
+	};
+	// function to capture email input
+	const handleEmailField = (e) => {
+		setEmail(e.target.value);
+	};
+	// function to capture password input -- find a way to combine the two if possible
+	const handlePasswordField = (e) => {
+		setPassword(e.target.value);
+	};
+    const handleCPasswordField = (e) => {
+		setCPass(e.target.value);
+	};
+
+    // PUT axios() request to edit user info
+    const handleSubmit = async (evt) => {
+		evt.preventDefault();
+		try {
+            // Check if password match confirm password
+            if (password === cPass) {
+                // axios post request to send credentials to our backend
+                const res = await axios.put(`${API_URL}/api/user/id`, {
+                    username: username,
+                    email: email,
+                    password: password,
+                });
+                console.log(res);  
+            }
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+    const handleDelete = async () => {
+        // Write your DELETE fetch() or axios() request here
+        const verify = window.confirm('Are you sure you want to delete?');
+        if (verify){
+            try {
+                const response = await axios.delete(`${API_URL}/api/user/id`);
+                response.status === 200 && history.push('/');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };  
+
+	return (
+		<>
+			<div>
+				<h1>Hello From Preferences</h1>
+			</div>
+			<section>
+				{modal ? (
+					<div className='modal'>
+						<h2>Editing User</h2>
+						<form onSubmit={handleSubmit}>
+                            <label htmlFor=''>
+                                <p>Username</p>
+                                <input type='text' name='' id='' onChange={handleUserNameField} />
+                            </label>
+                            <label htmlFor=''>
+                                <p>Email</p>
+                                <input type='text' name='' id='' onChange={handleEmailField} />
+                            </label>
+                            <label htmlFor=''>
+                                <p>New Password</p>
+                                <input type='password' name='' id='' onChange={handlePasswordField} />
+                            </label>
+                            <label htmlFor=''>
+                                <p>Confirm Password</p>
+                                <input type='password' name='' id='' onChange={handleCPasswordField} />
+                            </label>
+                            <button onClick={closeEdit}>
+                                Cancel
+                            </button>
+                            <button type='submit'>
+                                Submit
+                            </button>
+					    </form>
+					</div>
+				) : (
+					<>
+						<h2>User Info</h2>
+						<p>User Name: </p>
+						<p>Email: </p>
+                        <p>Password: </p>
+
+						<button onClick={openEdit}>Edit</button>
+						<button onClick={handleDelete}>Delete</button>
+					</>
+				)}
+			</section>
+		</>
+	)
+}
+
+export default Preferences;

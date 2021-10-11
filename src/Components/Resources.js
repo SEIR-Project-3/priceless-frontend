@@ -3,7 +3,7 @@ import React from 'react';
 function Resources(props) {
     return (
 			<div>
-				<body>
+				
 					<h1>Resources</h1>
 					<h3>
 						Having trouble giving an item away? Check out some of these
@@ -71,7 +71,7 @@ function Resources(props) {
                             </a>
                         </li>
 					</ul>
-				</body>
+				
 			</div>
 		);
 }
