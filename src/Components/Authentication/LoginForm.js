@@ -19,6 +19,8 @@ export const LoginForm = ({ setLoggedIn }) => {
 			});
 			console.log(res);
 			const token = res.data.token;
+			const userId = res.data.user.id
+			localStorage.setItem('userId', userId)
 			localStorage.setItem('token', token);
 			setLoggedIn(true);
 			history.push('/home');

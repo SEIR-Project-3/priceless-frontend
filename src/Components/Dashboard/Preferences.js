@@ -1,21 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config';
+import API_URL from '../../config';
 
-function Preferences({ match, users }) {
+function Preferences({ match, users,  }) {
 
     const [username, setUserName] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
     const [cPass, setCPass] = useState();
 
+    const [user, setUser] = useState();
     const [modal, setModal] = useState(null);
 
-    console.log(match);
+    const id = localStorage.getItem('userId');
 
     const history = useHistory();
+    
+    const getUser = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/api/user/${id}`);
+            setUser(res.data);
+            // console.log(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
+    useEffect(() => {
+       getUser();
+    }, []);
+    
+    console.log(user);
     const openEdit = () => {
         setModal(true);
     };
@@ -47,7 +63,7 @@ function Preferences({ match, users }) {
             // Check if password match confirm password
             if (password === cPass) {
                 // axios post request to send credentials to our backend
-                const res = await axios.put(`${API_URL}/api/user/id`, {
+                const res = await axios.put(`${API_URL}/api/user/${id}`, {
                     username: username,
                     email: email,
                     password: password,
@@ -64,7 +80,7 @@ function Preferences({ match, users }) {
         const verify = window.confirm('Are you sure you want to delete?');
         if (verify){
             try {
-                const response = await axios.delete(`${API_URL}/api/user/id`);
+                const response = await axios.delete(`${API_URL}/api/user/${id}`);
                 response.status === 200 && history.push('/');
             } catch (error) {
                 console.log(error);
@@ -73,7 +89,7 @@ function Preferences({ match, users }) {
     };  
 
 	return (
-		<>
+		<div>
 			<div>
 				<h1>Hello From Preferences</h1>
 			</div>
@@ -109,16 +125,15 @@ function Preferences({ match, users }) {
 				) : (
 					<>
 						<h2>User Info</h2>
-						<p>User Name: </p>
-						<p>Email: </p>
-                        <p>Password: </p>
+						<p>User Name: {user['username']}</p>
+						<p>Email: {user.email}</p>
 
 						<button onClick={openEdit}>Edit</button>
 						<button onClick={handleDelete}>Delete</button>
 					</>
 				)}
 			</section>
-		</>
+		</div>
 	)
 }
 

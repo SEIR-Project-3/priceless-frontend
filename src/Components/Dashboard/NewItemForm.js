@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
-import API_URL from '../config';
+import API_URL from '../../config';
+import axios from 'axios';
 
 function NewItemForm(props) {
 	const [loading, setLoading] = useState(false);
-	const [image, setImage] = useState('');
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [zip, setZip] = useState('');
+	const [image, setImage] = useState();
+	const [title, setTitle] = useState();
+	const [description, setDescription] = useState();
+	const [zip, setZip] = useState();
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const listing = { title, description, image, zip };
-		// console.log(listing)
-
-		fetch(`${API_URL}/api/items`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(listing),
-		}).then(() => {
-			console.log('new listing added');
-		});
+		try {
+			
+			const response = await axios.post(`${API_URL}/api/items`, {
+				title: title,
+				description: description,
+				image: image,
+				zip: zip,
+			});
+			response.status(204)
+		} catch (error) {
+			console.log(error)
+		}
 	};
 	const uploadImage = async (event) => {
 		const files = event.target.files;
@@ -73,12 +76,12 @@ function NewItemForm(props) {
 				)}
 				<label>Zip Code:</label>
 				<input
-					type='text'
+					type='number'
 					required
 					value={zip}
 					onChange={(event) => setZip(event.target.value)}
 				/>
-				<button>Submit Post</button>
+				<button type="submit">Submit Post</button>
 			</form>
 		</div>
 	);

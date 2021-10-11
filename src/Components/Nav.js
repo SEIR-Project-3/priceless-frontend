@@ -1,9 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Nav({ loggedIn, setLoggedIn }) {
-
-	const logOut = () => setLoggedIn(false);
+	
+	const history = useHistory();
+	
+	const logOut = () => {
+		setLoggedIn(false);
+		history.push('/home');
+	}
 
 	return (
 		<div>
@@ -17,14 +22,14 @@ function Nav({ loggedIn, setLoggedIn }) {
 				<Link to='/resources' className='navLink'>
 					<p>Resources</p>
 				</Link>
-				<Link to='/newpost' className='navLink'>
-					<p>Post Item</p>
-				</Link>
 				{loggedIn ? (
 					<>
 						<Link to='/dashboard' className='navLink'>
 							<p>Dashboard</p>
 						</Link>
+				<Link to='/newpost' className='navLink'>
+					<p>Post Item</p>
+				</Link>
 						<button onClick={logOut}  className='logOutBtn'>
 							<p>Log Out</p>
 						</button>
