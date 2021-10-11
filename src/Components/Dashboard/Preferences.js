@@ -3,44 +3,27 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../config';
 
-function Preferences({ match, users,  }) {
-
-    const [username, setUserName] = useState();
+function Preferences({ match, user, setUser }) {
+	const [username, setUserName] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
-    const [cPass, setCPass] = useState();
+	const [cPass, setCPass] = useState();
 
-    const [user, setUser] = useState();
-    const [modal, setModal] = useState(null);
+	const [modal, setModal] = useState(null);
 
-    const id = localStorage.getItem('userId');
+	const id = localStorage.getItem('userId');
 
-    const history = useHistory();
-    
-    const getUser = async () => {
-        try {
-            const res = await axios.get(`${API_URL}/api/user/${id}`);
-            setUser(res.data);
-            // console.log(res.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+	const history = useHistory();
 
-    useEffect(() => {
-       getUser();
-    }, []);
-    
-    console.log(user);
-    const openEdit = () => {
-        setModal(true);
-    };
+	const openEdit = () => {
+		setModal(true);
+	};
 
-    const closeEdit = () => {
-        setModal(false);
-    };
+	const closeEdit = () => {
+		setModal(false);
+	};
 
-    // function to capture username input
+	// function to capture username input
 	const handleUserNameField = (e) => {
 		setUserName(e.target.value);
 	};
@@ -52,41 +35,44 @@ function Preferences({ match, users,  }) {
 	const handlePasswordField = (e) => {
 		setPassword(e.target.value);
 	};
-    const handleCPasswordField = (e) => {
+	const handleCPasswordField = (e) => {
 		setCPass(e.target.value);
 	};
 
-    // PUT axios() request to edit user info
-    const handleSubmit = async (evt) => {
+	// PUT axios() request to edit user info
+	const handleSubmit = async (evt) => {
 		evt.preventDefault();
 		try {
-            // Check if password match confirm password
-            if (password === cPass) {
-                // axios post request to send credentials to our backend
-                const res = await axios.put(`${API_URL}/api/user/${id}`, {
-                    username: username,
-                    email: email,
-                    password: password,
-                });
-                console.log(res);  
-            }
+			// Check if password match confirm password
+			if (password === cPass) {
+				// axios post request to send credentials to our backend
+				const res = await axios.put(`${API_URL}/api/user/${id}`, {
+					username: username,
+					email: email,
+					password: password,
+				});
+                setUser(res.data);
+                history.push('/dashboard/preferences');
+				console.log(res);
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-    const handleDelete = async () => {
-        // Write your DELETE fetch() or axios() request here
-        const verify = window.confirm('Are you sure you want to delete?');
-        if (verify){
-            try {
-                const response = await axios.delete(`${API_URL}/api/user/${id}`);
-                response.status === 200 && history.push('/');
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };  
+	const handleDelete = async () => {
+		// Write your DELETE fetch() or axios() request here
+		const verify = window.confirm('Are you sure you want to delete?');
+		if (verify) {
+			try {
+				const response = await axios.delete(`${API_URL}/api/user/${id}`);
+				const res = await axios.delete(`${API_URL}/api/items/user/${id}`);
+				response.status === 200 && history.push('/');
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 
 	return (
 		<div>
@@ -98,29 +84,40 @@ function Preferences({ match, users,  }) {
 					<div className='modal'>
 						<h2>Editing User</h2>
 						<form onSubmit={handleSubmit}>
-                            <label htmlFor=''>
-                                <p>Username</p>
-                                <input type='text' name='' id='' onChange={handleUserNameField} />
-                            </label>
-                            <label htmlFor=''>
-                                <p>Email</p>
-                                <input type='text' name='' id='' onChange={handleEmailField} />
-                            </label>
-                            <label htmlFor=''>
-                                <p>New Password</p>
-                                <input type='password' name='' id='' onChange={handlePasswordField} />
-                            </label>
-                            <label htmlFor=''>
-                                <p>Confirm Password</p>
-                                <input type='password' name='' id='' onChange={handleCPasswordField} />
-                            </label>
-                            <button onClick={closeEdit}>
-                                Cancel
-                            </button>
-                            <button type='submit'>
-                                Submit
-                            </button>
-					    </form>
+							<label htmlFor=''>
+								<p>Username</p>
+								<input
+									type='text'
+									name=''
+									id=''
+									onChange={handleUserNameField}
+								/>
+							</label>
+							<label htmlFor=''>
+								<p>Email</p>
+								<input type='text' name='' id='' onChange={handleEmailField} />
+							</label>
+							<label htmlFor=''>
+								<p>New Password</p>
+								<input
+									type='password'
+									name=''
+									id=''
+									onChange={handlePasswordField}
+								/>
+							</label>
+							<label htmlFor=''>
+								<p>Confirm Password</p>
+								<input
+									type='password'
+									name=''
+									id=''
+									onChange={handleCPasswordField}
+								/>
+							</label>
+							<button onClick={closeEdit}>Cancel</button>
+							<button type='submit'>Submit</button>
+						</form>
 					</div>
 				) : (
 					<>
@@ -134,7 +131,7 @@ function Preferences({ match, users,  }) {
 				)}
 			</section>
 		</div>
-	)
+	);
 }
 
 export default Preferences;

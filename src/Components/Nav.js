@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 function Nav({ loggedIn, setLoggedIn }) {
 	
 	const history = useHistory();
-	
+
 	const logOut = () => {
 		setLoggedIn(false);
 		history.push('/home');
