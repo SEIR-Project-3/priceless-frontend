@@ -11,16 +11,17 @@ import Login from './Components/Authentication/Login';
 import Dashboard from './Components/Dashboard/Dashboard';
 import NewItemForm from './Components/Dashboard/NewItemForm';
 import Preferences from './Components/Dashboard/Preferences';
-import SignUpForm  from './Components/Authentication/SignUpForm';
+import SignUpForm from './Components/Authentication/SignUpForm';
+import Charities from './Components/Charities';
 
 function App() {
-	const [user, setUser] = useState()
+	const [user, setUser] = useState();
 	const [loggedIn, setLoggedIn] = useState(
 		localStorage.getItem('token') ? true : false
 	);
 
 	const id = localStorage.getItem('userId');
-	
+
 	const getUser = async () => {
 		try {
 			const res = await axios.get(`${API_URL}/api/user/${id}`);
@@ -45,15 +46,19 @@ function App() {
 				<Route exact path='/newpost' component={NewItemForm} />
 				<Route exact path='/signup' component={SignUpForm} />
 				{/* <Route exact path='/dashboard/preferences' component={Preferences} /> */}
-				<Route 
-					exact 
-					path='/dashboard' 
-					render={() => <Dashboard user={user} setUser={setUser} />} />
-				<Route 
-					exact 
-					path='/dashboard/preferences' 
-					render={() => <Preferences user={user} setUser={setUser}/> }/>
+				<Route
+					exact
+					path='/dashboard'
+					render={() => <Dashboard user={user} setUser={setUser} />}
+				/>
+				<Route
+					exact
+					path='/dashboard/preferences'
+					render={() => <Preferences user={user} setUser={setUser} />}
+				/>
 				{/* <Route exact path='/dashboard' component={Dashboard} /> */}
+				<Route exact path='/charities' component={Charities} />
+				<Route exact path='/dashboard' component={Dashboard} />
 				<Route
 					exact
 					path='/login'
