@@ -77,12 +77,12 @@ function Preferences({ match, user, setUser }) {
 	return (
 		<div>
 			<div>
-				<h1>Hello From Preferences</h1>
+				<h1 className='header'>Hello From Preferences</h1>
 			</div>
 			<section>
 				{modal ? (
 					<div className='modal'>
-						<h2>Editing User</h2>
+						<h2 className='header'>Editing User</h2>
 						<form onSubmit={handleSubmit}>
 							<label htmlFor=''>
 								<p>Username</p>
@@ -121,7 +121,7 @@ function Preferences({ match, user, setUser }) {
 					</div>
 				) : (
 					<>
-						<h2>User Info</h2>
+						<h2 className='header'>User Info</h2>
 						<p>User Name: {user['username']}</p>
 						<p>Email: {user.email}</p>
 

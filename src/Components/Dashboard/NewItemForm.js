@@ -46,8 +46,8 @@ function NewItemForm(props) {
 	};
 	return (
 		<div>
-			<h1>Post an item</h1>
-			<form onSubmit={handleSubmit}>
+			<h1 className='header'>Post an item</h1>
+			<form className='postItem' onSubmit={handleSubmit}>
 				<label>Item title:</label>
 				<input
 					type='text'

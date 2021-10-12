@@ -30,9 +30,9 @@ function Dashboard(props) {
 
 	return (
 		<div>
-			<h1>Hello From Dashboard</h1>
+			<h1 className='header'>Hello From Dashboard</h1>
 			<Link to='/dashboard/preferences'>
-				<h4>Preferences</h4>
+				<p>Preferences</p>
 			</Link>
 			<div className='listings'>
 				{items.map((item) => (

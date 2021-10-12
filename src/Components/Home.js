@@ -48,7 +48,7 @@ function Listings(props) {
 		<div>
 			<div className='listings'>
 				{listings.map((item) => (
-					<Listing item={item}/>
+					<Listing item={item} key={item._id}/>
 				))}
 			</div>
 		</div>
