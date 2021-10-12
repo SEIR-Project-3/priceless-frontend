@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Resources(props) {
+const Resources = (props) => {
     return (
 		<div className='divText'>
 			<h1 className='header'>Resources</h1>

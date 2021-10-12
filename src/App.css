@@ -8,7 +8,8 @@ button {
   cursor: pointer;
   max-width: fit-content;
   align-self: center;
-  padding: 0.5rem;
+  padding: 0.33rem;
+  margin: 4px;
 }
 
 ul {
@@ -68,7 +69,7 @@ textarea {
 .header {
   text-align: center;
   font-weight: lighter;
-  font-size: 26px;
+  font-size: 28px;
 }
 
 .divText {
@@ -77,7 +78,7 @@ textarea {
 }
 
 .navLink {
-  margin: 0px 8px;
+  margin: 0px 6px;
   text-decoration: none;
   color: #323232;
   font-size: 32px;
@@ -160,7 +161,21 @@ textarea {
 
 #logo {
   box-shadow: none;
-  width: 196px;
+  width: 192px;
   height: min-content;
   border-radius: 0px;
+}
+
+#postItemDiv {
+  display: grid;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1000px) {
+  .navLink, .logOutBtn {
+    font-size: 24px;
+  }
+  #logo {
+    width: 128px
+  }
 }

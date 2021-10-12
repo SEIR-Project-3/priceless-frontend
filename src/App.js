@@ -13,7 +13,7 @@ import NewItemForm from './Components/Dashboard/NewItemForm';
 import Preferences from './Components/Dashboard/Preferences';
 import SignUpForm from './Components/Authentication/SignUpForm';
 
-function App() {
+const App = () => {
 	const [user, setUser] = useState();
 	const [loggedIn, setLoggedIn] = useState(
 		localStorage.getItem('token') ? true : false
@@ -21,13 +21,12 @@ function App() {
 
 	const id = localStorage.getItem('userId');
 
-	const getUser = async () => {
+	const getUser = async (next) => {
 		try {
 			const res = await axios.get(`${API_URL}/api/user/${id}`);
 			setUser(res.data);
-			console.log(res.data);
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
@@ -45,11 +44,6 @@ function App() {
 				<Route exact path='/resources' component={Resources} />
 				<Route exact path='/newpost' component={NewItemForm} />
 				<Route exact path='/signup' component={SignUpForm} />
-				<Route
-					exact
-					path='/dashboard'
-					render={() => <Dashboard user={user} setUser={setUser} />}
-				/>
 				<Route
 					exact
 					path='/dashboard/preferences'

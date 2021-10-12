@@ -5,28 +5,23 @@ import { Link } from 'react-router-dom';
 import API_URL from '../../config';
 import axios from 'axios';
 
-function Dashboard(props) {
-
-
+const Dashboard = (props) => {
 	const [items, setItems] = useState([]);
 
 	const id = localStorage.getItem('userId');
 	
-	const getItems = async () => {
+	const getItems = async (next) => {
 		try {
 			const res = await axios.get(`${API_URL}/api/items/user/${id}`);
 			setItems(res.data);
-			console.log(res);
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
 	useEffect(() => {
 		getItems();
 	}, []);
-
-	console.log(items);
 
 	return (
 		<div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function About(props) {
+const About = (props) => {
 	return (
 		<div className='divText'>
 			<h1 className='header'>About Us</h1>

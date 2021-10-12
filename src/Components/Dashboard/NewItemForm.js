@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import API_URL from '../../config';
 import axios from 'axios';
 
-function NewItemForm(props) {
+const NewItemForm = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState();
 	const [title, setTitle] = useState();
 	const [description, setDescription] = useState();
 	const [zip, setZip] = useState();
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	const handleSubmit = async (next, e) => {
+		e.preDefault();
 		try {
-			
 			const response = await axios.post(`${API_URL}/api/items`, {
 				title: title,
 				description: description,
@@ -21,11 +20,11 @@ function NewItemForm(props) {
 			});
 			response.status(204)
 		} catch (error) {
-			console.log(error)
+			next(error)
 		}
 	};
-	const uploadImage = async (event) => {
-		const files = event.target.files;
+	const uploadImage = async (e) => {
+		const files = e.target.files;
 		const data = new FormData();
 		data.append('file', files[0]);
 		data.append('upload_preset', 'newupload');
@@ -45,7 +44,7 @@ function NewItemForm(props) {
 		setLoading(false);
 	};
 	return (
-		<div>
+		<div id='postItemDiv'>
 			<h1 className='header'>Post an item</h1>
 			<form className='postItem' onSubmit={handleSubmit}>
 				<label>Item title:</label>
@@ -53,13 +52,13 @@ function NewItemForm(props) {
 					type='text'
 					required
 					value={title}
-					onChange={(event) => setTitle(event.target.value)}
+					onChange={(e) => setTitle(e.target.value)}
 				/>
 				<label>Item description:</label>
 				<textarea
 					required
 					value={description}
-					onChange={(event) => setDescription(event.target.value)}></textarea>
+					onChange={(e) => setDescription(e.target.value)}></textarea>
 				<label>Post Image:</label>
 				<input
 					type='file'
@@ -68,7 +67,6 @@ function NewItemForm(props) {
 					placeholder='Upload an image'
 					onChange={uploadImage}
 				/>
-
 				{loading ? (
 					<h3>Loading...</h3>
 				) : (
@@ -76,10 +74,11 @@ function NewItemForm(props) {
 				)}
 				<label>Zip Code:</label>
 				<input
-					type='number'
+					type='text'
 					required
 					value={zip}
-					onChange={(event) => setZip(event.target.value)}
+					onChange={(e) => setZip(e.target.value)}
+					pattern='\d{5}'
 				/>
 				<button type="submit">Submit Post</button>
 			</form>

@@ -3,12 +3,11 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../config';
 
-function Preferences({ match, user, setUser }) {
+const Preferences = ({ match, user, setUser }) => {
 	const [username, setUserName] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [cPass, setCPass] = useState();
-
 	const [modal, setModal] = useState(null);
 
 	const id = localStorage.getItem('userId');
@@ -22,7 +21,6 @@ function Preferences({ match, user, setUser }) {
 	const closeEdit = () => {
 		setModal(false);
 	};
-
 	// function to capture username input
 	const handleUserNameField = (e) => {
 		setUserName(e.target.value);
@@ -35,13 +33,13 @@ function Preferences({ match, user, setUser }) {
 	const handlePasswordField = (e) => {
 		setPassword(e.target.value);
 	};
+	
 	const handleCPasswordField = (e) => {
 		setCPass(e.target.value);
 	};
-
 	// PUT axios() request to edit user info
-	const handleSubmit = async (evt) => {
-		evt.preventDefault();
+	const handleSubmit = async (next, e) => {
+		e.preventDefault();
 		try {
 			// Check if password match confirm password
 			if (password === cPass) {
@@ -53,14 +51,13 @@ function Preferences({ match, user, setUser }) {
 				});
                 setUser(res.data);
                 history.push('/dashboard/preferences');
-				console.log(res);
 			}
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
-	const handleDelete = async () => {
+	const handleDelete = async (next) => {
 		// Write your DELETE fetch() or axios() request here
 		const verify = window.confirm('Are you sure you want to delete?');
 		if (verify) {
@@ -69,7 +66,7 @@ function Preferences({ match, user, setUser }) {
 				const res = await axios.delete(`${API_URL}/api/items/user/${id}`);
 				response.status === 200 && history.push('/');
 			} catch (error) {
-				console.log(error);
+				next(error);
 			}
 		}
 	};

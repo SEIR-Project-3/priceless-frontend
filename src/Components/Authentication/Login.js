@@ -1,7 +1,7 @@
 import React from 'react';
-import { LoginForm } from './LoginForm';
+import LoginForm from './LoginForm';
 
-function Login({ setLoggedIn }) {
+const Login = ({ setLoggedIn }) => {
 	return (
 		<div>
 			<LoginForm setLoggedIn={setLoggedIn} />

@@ -9,8 +9,8 @@ const SignUpForm = () => {
 	const [cPass, setCPass] = useState();
 
 	// function to allow the user to login
-	const createUser = async (evt) => {
-		evt.preventDefault();
+	const createUser = async (next, e) => {
+		e.preventDefault();
 		try {
 			// Check if password match confirm password
 			if (password === cPass) {
@@ -20,10 +20,9 @@ const SignUpForm = () => {
 					email: email,
 					password: password,
 				});
-				console.log(res);
 			}
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
