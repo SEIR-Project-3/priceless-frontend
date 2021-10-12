@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import API_URL from '../../config';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
-function NewItemForm(props) {
+function NewItemForm() {
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState();
 	const [title, setTitle] = useState();
 	const [description, setDescription] = useState();
 	const [zip, setZip] = useState();
+
+	const history = useHistory();
+	const id = localStorage.getItem('userId');
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -18,8 +22,10 @@ function NewItemForm(props) {
 				description: description,
 				image: image,
 				zip: zip,
+				owner: id
 			});
-			response.status(204)
+			history.push('/home');
+			response.status(201);
 		} catch (error) {
 			console.log(error)
 		}

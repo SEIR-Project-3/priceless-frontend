@@ -3,34 +3,16 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../config';
 
-function Preferences({ match, user, setUser }) {
-	const [username, setUserName] = useState();
-	const [email, setEmail] = useState();
+const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
+
+	console.log(user);
 	const [password, setPassword] = useState();
 	const [cPass, setCPass] = useState();
-
-	const [modal, setModal] = useState(null);
 
 	const id = localStorage.getItem('userId');
 
 	const history = useHistory();
 
-	const openEdit = () => {
-		setModal(true);
-	};
-
-	const closeEdit = () => {
-		setModal(false);
-	};
-
-	// function to capture username input
-	const handleUserNameField = (e) => {
-		setUserName(e.target.value);
-	};
-	// function to capture email input
-	const handleEmailField = (e) => {
-		setEmail(e.target.value);
-	};
 	// function to capture password input -- find a way to combine the two if possible
 	const handlePasswordField = (e) => {
 		setPassword(e.target.value);
@@ -46,13 +28,11 @@ function Preferences({ match, user, setUser }) {
 			// Check if password match confirm password
 			if (password === cPass) {
 				// axios post request to send credentials to our backend
-				const res = await axios.put(`${API_URL}/api/user/${id}`, {
-					username: username,
-					email: email,
+				const res = await axios.patch(`${API_URL}/api/user/${id}`, {
 					password: password,
 				});
-                setUser(res.data);
-                history.push('/dashboard/preferences');
+				setUser(res.data);
+				setUserModal(false);
 				console.log(res);
 			}
 		} catch (error) {
@@ -61,74 +41,46 @@ function Preferences({ match, user, setUser }) {
 	};
 
 	const handleDelete = async () => {
-		// Write your DELETE fetch() or axios() request here
 		const verify = window.confirm('Are you sure you want to delete?');
 		if (verify) {
 			try {
+				const res = axios.delete(`${API_URL}/api/items/user/${id}`);
 				const response = await axios.delete(`${API_URL}/api/user/${id}`);
-				const res = await axios.delete(`${API_URL}/api/items/user/${id}`);
-				response.status === 200 && history.push('/');
+				setUserModal(false);
+				history.push('/home');
+				localStorage.clear();
+				// setLoggedIn(false);
 			} catch (error) {
 				console.log(error);
 			}
 		}
-	};
-
+	}
+	
 	return (
 		<div>
-			<div>
-				<h1 className='header'>Hello From Preferences</h1>
-			</div>
-			<section>
-				{modal ? (
-					<div className='modal'>
-						<h2 className='header'>Editing User</h2>
-						<form onSubmit={handleSubmit}>
-							<label htmlFor=''>
-								<p>Username</p>
-								<input
-									type='text'
-									name=''
-									id=''
-									onChange={handleUserNameField}
-								/>
-							</label>
-							<label htmlFor=''>
-								<p>Email</p>
-								<input type='text' name='' id='' onChange={handleEmailField} />
-							</label>
-							<label htmlFor=''>
-								<p>New Password</p>
-								<input
-									type='password'
-									name=''
-									id=''
-									onChange={handlePasswordField}
-								/>
-							</label>
-							<label htmlFor=''>
-								<p>Confirm Password</p>
-								<input
-									type='password'
-									name=''
-									id=''
-									onChange={handleCPasswordField}
-								/>
-							</label>
-							<button onClick={closeEdit}>Cancel</button>
-							<button type='submit'>Submit</button>
-						</form>
-					</div>
-				) : (
-					<>
-						<h2 className='header'>User Info</h2>
-						<p>User Name: {user['username']}</p>
-						<p>Email: {user.email}</p>
-
-						<button onClick={openEdit}>Edit</button>
-						<button onClick={handleDelete}>Delete</button>
-					</>
-				)}
+			<section classname='modal-container'>
+				<div className='modal-container__child'>
+					<h2 className='header'>Editing User</h2>
+					<form onSubmit={handleSubmit}>
+						<label htmlFor=''>
+							<p>New Password</p>
+							<input
+								type='password'
+								onChange={handlePasswordField}
+							/>
+						</label>
+						<label htmlFor=''>
+							<p>Confirm Password</p>
+							<input
+								type='password'
+								onChange={handleCPasswordField}
+							/>
+						</label>
+						<button onClick={(e) => setUserModal(false)}>Cancel</button>
+						<button type='submit'>Submit</button>
+					</form>
+					{/* <button onClick={handleDelete}>Delete Acount</button> */}
+				</div>
 			</section>
 		</div>
 	);
