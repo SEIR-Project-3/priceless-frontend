@@ -12,8 +12,8 @@ function About(props) {
 				seeks to connect like-minded individuals with the idea that they can
 				find a new home for items that can be used by others. We operate with
 				off of the belief that truly, "one person's trash is another person's
-				treasure." We also understand that it may be difficult to find a a
-				suitor for our items so we have created a list of resources that can
+				treasure." We also understand that it may be difficult to find a
+				suitor for our items, so we have created a list of resources that can
 				assist in helping to recycle usable but unwanted items. The cost it
 				takes to recycle is free!
 			</p>
