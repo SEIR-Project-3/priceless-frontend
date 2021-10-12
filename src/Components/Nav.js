@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Logo from '../assets/Priceless-logo.png';
 
 function Nav({ loggedIn, setLoggedIn }) {
 	const history = useHistory();
@@ -13,19 +14,13 @@ function Nav({ loggedIn, setLoggedIn }) {
 		<div>
 			<nav>
 				<Link to='/home' className='navLink'>
-					<p>Home</p>
+					<img id='logo' src={Logo} alt='Priceless logo' />
 				</Link>
 				<Link to='/about' className='navLink'>
 					<p>About</p>
 				</Link>
 				<Link to='/resources' className='navLink'>
 					<p>Resources</p>
-				</Link>
-				<Link to='/newpost' className='navLink'>
-					<p>Post Item</p>
-				</Link>
-				<Link to='/charities' className='navLink'>
-					<p>Charities</p>
 				</Link>
 				{loggedIn ? (
 					<>

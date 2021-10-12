@@ -1,23 +1,85 @@
-.app {
-  color: #323232;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+input {
+  font-family: 'Andada Pro', serif;;
+  margin: 1rem;
 }
 
-.listings {
-  display: grid;
-  grid-template-columns: auto auto auto;
+button {
+  font-family: 'Andada Pro', serif;;
+  cursor: pointer;
+  max-width: fit-content;
+  align-self: center;
+  padding: 0.5rem;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style: inside;
+}
+
+img {
+  width:  256px;
+  height: 256px;
+  object-fit: cover;
+  margin: 0.5rem;
+  box-shadow: 0 0 16px rgb(128, 128, 128, 0.2);
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: #566856;
+}
+
+a:hover {
+  color: #EE6464;
 }
 
 nav {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+textarea {
+  font-family: 'Andada Pro', serif;;
+  margin: 1rem;
+}
+
+.app {
+  color: #323232;
+  font-family: 'Andada Pro', serif;;
+}
+
+.listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr))
+}
+
+.text {
+  font-size: 18px;
+  text-align: center;
+  margin: 0 1rem;
+  line-height: 1.75;
+}
+
+.header {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.divText {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .navLink {
-  margin: 8px;
+  margin: 0px 8px;
   text-decoration: none;
   color: #323232;
-  font-size: 24px;
+  font-size: 32px;
 }
 
 .navLink:hover {
@@ -26,11 +88,10 @@ nav {
 
 .logOutBtn {
   background: none;
+  margin: 0;
   border: none;
-  font-size: 24px;
+  font-size: 32px;
   color: #323232;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  cursor: pointer;
 }
 
 .logOutBtn:hover {
@@ -43,44 +104,61 @@ nav {
   flex-direction: column;
   align-content: center;
   align-items: center;
-  /* border: solid rgb(114, 157, 29) 2px; */
-  box-shadow: 0 0 16px rgb(110, 116, 110, 0.25);
-  margin: 12px;
-  padding: 12px;
-}
-
-img {
-  width:  256px;
-  height: 256px;
-  object-fit: cover;
-  margin: 0.5rem;
-  box-shadow: 0 0 16px rgb(110, 116, 110, 0.5);
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #F8FFEB;
+  box-shadow: 0 0 16px rgb(128, 128, 128, 0.1);
 }
 
 .title {
   margin: 0.5rem;
-  font-size: 26px;
+  font-size: 24px;
+  text-transform: capitalize;
+  font-weight: lighter;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .description {
   margin: 0.5rem;
-  font-size: 20px;
-  color: #565656;
+  font-size: 18px;
+  color: #484848;
+  text-align: center;
 }
 
 .zip {
-  margin: 0;
-  font-size: 18px;
+  margin: 0.5rem;
+  font-size: 14px;
   color: #808080;
 }
 
 .contactBtn {
   text-decoration: none;
-  color: #566456;
-  font-size: 18px;
+  color: #566856;
+  font-size: 20px;
   margin: 0.5rem;
+  font-style: italic;
 }
 
 .contactBtn:hover {
   color: #EE6464;
+}
+
+.postItem {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+#logo {
+  box-shadow: none;
+  width: 196px;
+  height: min-content;
 }
