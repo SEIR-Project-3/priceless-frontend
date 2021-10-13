@@ -1,58 +1,40 @@
 import React from 'react';
 
-function Resources(props) {
-    return (
+const Resources = () => {
+	return (
 		<div className='divText'>
 			<h1 className='header'>Resources</h1>
 			<p className='text'>
-				Having trouble giving an item away? Check out some of these
-				resources for other ways that you can donate them.
+				Having trouble giving an item away? Check out some of these resources
+				for other ways that you can donate them.
 			</p>
 			<ul>
 				<li>
-					<a href='https://satruck.org/DropOff'>
-						Salvation Army
-					</a>
+					<a href='https://satruck.org/DropOff'>Salvation Army</a>
 				</li>
 				<li>
-					<a href='https://www.goodwill.org/locator/'>
-						Goodwill
-					</a>
+					<a href='https://www.goodwill.org/locator/'>Goodwill</a>
 				</li>
 				<li>
-					<a href='https://stores.savers.com/'>
-						Savers
-					</a>
+					<a href='https://stores.savers.com/'>Savers</a>
 				</li>
 				<li>
-					<a href='https://www.habitat.org/restores'>
-						Habitat for Humanity
-					</a>
+					<a href='https://www.habitat.org/restores'>Habitat for Humanity</a>
 				</li>
 				<li>
-					<a href='https://pickupplease.org/donation-pickup/'>
-						Pickup Please
-					</a>
+					<a href='https://pickupplease.org/donation-pickup/'>Pickup Please</a>
 				</li>
 				<li>
-					<a href='https://www.thethriftshopper.com/'>
-						The Thrift Shopper
-						</a>
+					<a href='https://www.thethriftshopper.com/'>The Thrift Shopper</a>
 				</li>
 				<li>
-					<a href='https://www.pickupmydonation.com/'>
-						Pick Up My Donation
-					</a>
+					<a href='https://www.pickupmydonation.com/'>Pick Up My Donation</a>
 				</li>
 				<li>
-					<a href='https://soles4souls.org/give-shoes/'>
-						Soles4Souls
-						</a>
+					<a href='https://soles4souls.org/give-shoes/'>Soles4Souls</a>
 				</li>
 				<li>
-					<a href='http://www.donationtown.org/'>
-						Donation Town
-					</a>
+					<a href='http://www.donationtown.org/'>Donation Town</a>
 				</li>
 				<li>
 					<a href='https://www.betterworldbooks.com/go/donate'>
@@ -60,18 +42,14 @@ function Resources(props) {
 					</a>
 				</li>
 				<li>
-					<a href='https://www.gogreendrop.com/'>
-						Green Drop
-					</a>
+					<a href='https://www.gogreendrop.com/'>Green Drop</a>
 				</li>
 				<li>
-					<a href='https://baby2baby.org/donate/'>
-						Baby2Baby
-					</a>
+					<a href='https://baby2baby.org/donate/'>Baby2Baby</a>
 				</li>
 			</ul>
 		</div>
 	);
-}
+};
 
 export default Resources;

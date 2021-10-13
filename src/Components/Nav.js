@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../assets/Priceless-logo.png';
 
-function Nav({ loggedIn, setLoggedIn }) {
+const Nav = ({ loggedIn, setLoggedIn }) => {
 	const history = useHistory();
 
 	const logOut = () => {
@@ -47,6 +47,6 @@ function Nav({ loggedIn, setLoggedIn }) {
 			</nav>
 		</div>
 	);
-}
+};
 
 export default Nav;

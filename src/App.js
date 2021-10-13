@@ -2,8 +2,6 @@ import './App.css';
 import Nav from './Components/Nav';
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import axios from 'axios';
-import API_URL from './config';
 import Home from './Components/Home';
 import About from './Components/About';
 import Resources from './Components/Resources';
@@ -11,29 +9,13 @@ import Login from './Components/Authentication/Login';
 import Dashboard from './Components/Dashboard/Dashboard';
 import NewItemForm from './Components/Dashboard/NewItemForm';
 import Preferences from './Components/Dashboard/Preferences';
+import EditItem from './Components/Dashboard/EditItem';
 import SignUpForm from './Components/Authentication/SignUpForm';
 
-function App() {
-	const [user, setUser] = useState();
+const App = () => {
 	const [loggedIn, setLoggedIn] = useState(
 		localStorage.getItem('token') ? true : false
 	);
-
-	const id = localStorage.getItem('userId');
-
-	const getUser = async () => {
-		try {
-			const res = await axios.get(`${API_URL}/api/user/${id}`);
-			setUser(res.data);
-			console.log(res.data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		getUser();
-	}, []);
 
 	return (
 		<div className='app'>
@@ -44,18 +26,18 @@ function App() {
 				<Route exact path='/about' component={About} />
 				<Route exact path='/resources' component={Resources} />
 				<Route exact path='/newpost' component={NewItemForm} />
-				<Route exact path='/signup' component={SignUpForm} />
 				<Route
 					exact
-					path='/dashboard'
-					render={() => <Dashboard user={user} setUser={setUser} />}
+					path='/signup'
+					render={() => <SignUpForm setLoggedIn={setLoggedIn} />}
 				/>
 				<Route
 					exact
-					path='/dashboard/preferences'
-					render={() => <Preferences user={user} setUser={setUser} />}
+					path='/dashboard/preferences/'
+					render={() => <Preferences setLoggedIn={setLoggedIn} />}
 				/>
 				<Route exact path='/dashboard' component={Dashboard} />
+				<Route exact path='/dashboard/edititem/' component={EditItem} />
 				<Route
 					exact
 					path='/login'
@@ -64,6 +46,6 @@ function App() {
 			</main>
 		</div>
 	);
-}
+};
 
 export default App;

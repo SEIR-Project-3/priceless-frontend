@@ -3,13 +3,13 @@ import API_URL from '../../config';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-export const LoginForm = ({ setLoggedIn }) => {
+const LoginForm = ({ setLoggedIn }) => {
 	const history = useHistory();
 	const [username, setUserName] = useState();
 	const [password, setPassword] = useState();
 
 	// function to allow the user to login
-	const loginUser = async (e) => {
+	const loginUser = async (e, next) => {
 		e.preventDefault();
 		try {
 			// axios post request to send credentials to our backend
@@ -17,16 +17,14 @@ export const LoginForm = ({ setLoggedIn }) => {
 				username: username,
 				password: password,
 			});
-			console.log(res);
 			const token = res.data.token;
-			const userId = res.data.user.id
-			localStorage.setItem('userId', userId)
+			const userId = res.data.user.id;
+			localStorage.setItem('userId', userId);
 			localStorage.setItem('token', token);
 			setLoggedIn(true);
 			history.push('/home');
-			// stopped here because unsure about setting of tokens and where to place. will reach out to Esin tomorrow
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
@@ -56,3 +54,5 @@ export const LoginForm = ({ setLoggedIn }) => {
 		</form>
 	);
 };
+
+export default LoginForm;
