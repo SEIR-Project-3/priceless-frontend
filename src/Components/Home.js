@@ -10,7 +10,6 @@ const Listings = (props) => {
 		try {
 			const res = await axios.get(`${API_URL}/api/items`);
 			setListings(res.data);
-			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
@@ -20,7 +19,7 @@ const Listings = (props) => {
 		getListing();
 	}, []);
 
-	if (!listings) {
+	if (!listings.length) {
 		// placeholder can do something more dynamic later
 		return <h2>Loading...</h2>;
 	}
