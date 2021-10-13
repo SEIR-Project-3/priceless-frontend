@@ -11,7 +11,7 @@ const SignUpForm = (setLoggedIn) => {
 
 	const history = useHistory();
 	// function to allow the user to login
-	const createUser = async (e, next) => {
+	const createUser = async (e) => {
 		e.preventDefault();
 		try {
 			// Check if password match confirm password
@@ -25,7 +25,7 @@ const SignUpForm = (setLoggedIn) => {
 				history.push('/home');
 			}
 		} catch (error) {
-			next(error);
+			console.log(error);
 		}
 	};
 
@@ -47,22 +47,22 @@ const SignUpForm = (setLoggedIn) => {
 
 	return (
 		<form onSubmit={createUser}>
-			<label htmlFor=''>
-				<p>Username:</p>
-				<input type='text' name='' id='' onChange={handleUserNameField} />
+			<label className='label' htmlFor=''>
+				Username
 			</label>
-			<label htmlFor=''>
-				<p>Email:</p>
-				<input type='text' name='' id='' onChange={handleEmailField} />
+			<input type='text' name='' id='' onChange={handleUserNameField} />
+			<label className='label' htmlFor=''>
+				Email
 			</label>
-			<label htmlFor=''>
-				<p>Password</p>
-				<input type='password' name='' id='' onChange={handlePasswordField} />
+			<input type='text' name='' id='' onChange={handleEmailField} />
+			<label className='label' htmlFor=''>
+				Password
 			</label>
-			<label htmlFor=''>
-				<p>Confirm Password</p>
-				<input type='password' name='' id='' onChange={handleCPasswordField} />
+			<input type='password' name='' id='' onChange={handlePasswordField} />
+			<label className='label' htmlFor=''>
+				Confirm Password
 			</label>
+			<input type='password' name='' id='' onChange={handleCPasswordField} />
 			<div>
 				<button type='submit'>Create Account</button>
 			</div>

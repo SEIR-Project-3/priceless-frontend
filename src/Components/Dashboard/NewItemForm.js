@@ -13,7 +13,7 @@ const NewItemForm = () => {
 	const history = useHistory();
 	const id = localStorage.getItem('userId');
 
-	const handleSubmit = async (e, next) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			const response = await axios.post(`${API_URL}/api/items`, {
@@ -26,7 +26,7 @@ const NewItemForm = () => {
 			history.push('/home');
 			response.status(201);
 		} catch (error) {
-			next(error);
+			console.log(error);
 		}
 	};
 	const uploadImage = async (e) => {
@@ -53,20 +53,20 @@ const NewItemForm = () => {
 		<div>
 			<h1 className='header'>Post an item</h1>
 			<form className='postItem' onSubmit={handleSubmit}>
-				<label>Item title:</label>
+				<label className='label'>Item title</label>
 				<input
 					type='text'
 					required
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
 				/>
-				<label>Item description:</label>
+				<label className='label'>Item description:</label>
 				<textarea
 					required
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}></textarea>
-				<label>Post Image:</label>
-				<input
+				<label className='label'>Post Image</label>
+				<input classname='image-upload'
 					type='file'
 					name='file'
 					required
@@ -79,7 +79,7 @@ const NewItemForm = () => {
 				) : (
 					<img src={image} style={{ width: '300px' }} alt='' />
 				)}
-				<label>Zip Code:</label>
+				<label className='label'>Zip Code</label>
 				<input
 					type='number'
 					required

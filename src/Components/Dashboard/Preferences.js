@@ -3,13 +3,26 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../config';
 
-const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
+const Preferences = ({ match, setUserModal, setLoggedIn }) => {
 	const [password, setPassword] = useState();
 	const [cPass, setCPass] = useState();
-
+	const [user, setUser] = useState();
 	const id = localStorage.getItem('userId');
-
 	const history = useHistory();
+
+	
+	useEffect(() => {
+		getUser()
+	}, [])
+
+	const getUser = async () => {
+		try {
+			const res = await axios.get(`${API_URL}/api/user/${id}`);
+			setUser(res.data);
+		} catch (error) {
+			console.log(error)
+		}
+	};
 
 	// function to capture password input -- find a way to combine the two if possible
 	const handlePasswordField = (e) => {
@@ -45,7 +58,7 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 				setUserModal(false);
 				history.push('/home');
 				localStorage.clear();
-				// setLoggedIn(false);
+				setLoggedIn(false);
 			} catch (error) {
 				console.log(error);
 			}
@@ -56,20 +69,22 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 		<div>
 			<section className='modal-container'>
 				<div className='modal-container__child'>
-					<h2 className='header'>Editing User</h2>
+					<h2 className='header'>Change Password</h2>
 					<form onSubmit={handleSubmit}>
-						<label htmlFor=''>
-							<p>New Password</p>
-							<input type='password' onChange={handlePasswordField} />
+						<label className='label' htmlFor=''>
+							New Password
 						</label>
-						<label htmlFor=''>
-							<p>Confirm Password</p>
-							<input type='password' onChange={handleCPasswordField} />
+						<input type='password' onChange={handlePasswordField} />
+						<label className='label' htmlFor=''>
+							Confirm Password
 						</label>
-						<button onClick={(e) => setUserModal(false)}>Cancel</button>
-						<button type='submit'>Submit</button>
+						<input type='password' onChange={handleCPasswordField} />
+						<span className='modal-buttons'>
+							<button onClick={(e) => setUserModal(false)}>Cancel</button>
+							<button type='submit'>Submit</button>
+							<button onClick={handleDelete}>Delete</button>
+						</span>
 					</form>
-					<button onClick={handleDelete}>Delete Account</button>
 				</div>
 			</section>
 		</div>
