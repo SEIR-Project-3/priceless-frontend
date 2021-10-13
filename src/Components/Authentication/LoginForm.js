@@ -9,7 +9,7 @@ const LoginForm = ({ setLoggedIn }) => {
 	const [password, setPassword] = useState();
 
 	// function to allow the user to login
-	const loginUser = async (e, next) => {
+	const loginUser = async (e) => {
 		e.preventDefault();
 		try {
 			// axios post request to send credentials to our backend
@@ -24,7 +24,7 @@ const LoginForm = ({ setLoggedIn }) => {
 			setLoggedIn(true);
 			history.push('/home');
 		} catch (error) {
-			next(error);
+			console.log(error);
 		}
 	};
 
@@ -39,15 +39,15 @@ const LoginForm = ({ setLoggedIn }) => {
 	};
 
 	return (
-		<form onSubmit={loginUser}>
-			<label htmlFor=''>
-				<p>Username:</p>
+		<form className='login-form' onSubmit={loginUser}>
+			<label className='label' htmlFor=''>
+				Username
+			</label>
 				<input type='text' name='' id='' onChange={handleUserNameField} />
+			<label className='label' htmlFor=''>
+				Password
 			</label>
-			<label htmlFor=''>
-				<p>Password</p>
 				<input type='password' name='' id='' onChange={handlePasswordField} />
-			</label>
 			<div>
 				<button type='submit'>Submit</button>
 			</div>

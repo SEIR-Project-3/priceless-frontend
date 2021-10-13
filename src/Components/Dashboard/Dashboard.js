@@ -16,12 +16,12 @@ const Dashboard = () => {
 
 	const id = localStorage.getItem('userId');
 
-	const getUser = async (next) => {
+	const getUser = async () => {
 		try {
 			const res = await axios.get(`${API_URL}/api/user/${id}`);
 			setUser(res.data);
 		} catch (error) {
-			next(error);
+			console.log(error)
 		}
 	};
 
@@ -29,12 +29,12 @@ const Dashboard = () => {
 		getUser();
 	}, []);
 
-	const getItems = async (next) => {
+	const getItems = async () => {
 		try {
 			const res = await axios.get(`${API_URL}/api/items/user/${id}`);
 			setItems(res.data);
 		} catch (error) {
-			next(error);
+			console.log(error);
 		}
 	};
 
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
 	return (
 		<div>
-			<h1 className='header'>Hello From Dashboard</h1>
+			<h1 className='header'>Dashboard</h1>
 			<button
 				onClick={(e) => {
 					setUserModal(true);
@@ -73,8 +73,6 @@ const Dashboard = () => {
 				{/* Display modal for editing user info */}
 				{userModal && (
 					<Preferences
-						user={user}
-						setUser={setUser}
 						setUserModal={setUserModal}
 					/>
 				)}

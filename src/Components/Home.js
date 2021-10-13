@@ -4,7 +4,7 @@ import axios from 'axios';
 import API_URL from '../config';
 
 const Listings = (props) => {
-	const [listings, setListings] = useState();
+	const [listings, setListings] = useState([]);
 
 	const getListing = async () => {
 		try {
@@ -20,7 +20,6 @@ const Listings = (props) => {
 		getListing();
 	}, []);
 
-	// UX/UI considerations to provide feedback to the user
 	if (!listings) {
 		// placeholder can do something more dynamic later
 		return <h2>Loading...</h2>;
