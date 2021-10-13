@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import API_URL from '../../config';
 import axios from 'axios';
 
-const SignUpForm = ( setLoggedIn ) => {
+const SignUpForm = (setLoggedIn) => {
 	const [username, setUserName] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
@@ -11,8 +11,8 @@ const SignUpForm = ( setLoggedIn ) => {
 
 	const history = useHistory();
 	// function to allow the user to login
-	const createUser = async (evt) => {
-		evt.preventDefault();
+	const createUser = async (e, next) => {
+		e.preventDefault();
 		try {
 			// Check if password match confirm password
 			if (password === cPass) {
@@ -23,11 +23,10 @@ const SignUpForm = ( setLoggedIn ) => {
 					password: password,
 				});
 				history.push('/home');
-				console.log(res);
 			}
 		} catch (error) {
-			console.log(error);
-		};
+			next(error);
+		}
 	};
 
 	// function to capture username input

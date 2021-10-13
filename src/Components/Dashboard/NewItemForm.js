@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import API_URL from '../../config';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
-function NewItemForm() {
+const NewItemForm = () => {
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState();
 	const [title, setTitle] = useState();
@@ -13,25 +13,24 @@ function NewItemForm() {
 	const history = useHistory();
 	const id = localStorage.getItem('userId');
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	const handleSubmit = async (e, next) => {
+		e.preventDefault();
 		try {
-			
 			const response = await axios.post(`${API_URL}/api/items`, {
 				title: title,
 				description: description,
 				image: image,
 				zip: zip,
-				owner: id
+				owner: id,
 			});
 			history.push('/home');
 			response.status(201);
 		} catch (error) {
-			console.log(error)
+			next(error);
 		}
 	};
-	const uploadImage = async (event) => {
-		const files = event.target.files;
+	const uploadImage = async (e) => {
+		const files = e.target.files;
 		const data = new FormData();
 		data.append('file', files[0]);
 		data.append('upload_preset', 'newupload');
@@ -59,13 +58,13 @@ function NewItemForm() {
 					type='text'
 					required
 					value={title}
-					onChange={(event) => setTitle(event.target.value)}
+					onChange={(e) => setTitle(e.target.value)}
 				/>
 				<label>Item description:</label>
 				<textarea
 					required
 					value={description}
-					onChange={(event) => setDescription(event.target.value)}></textarea>
+					onChange={(e) => setDescription(e.target.value)}></textarea>
 				<label>Post Image:</label>
 				<input
 					type='file'
@@ -85,12 +84,12 @@ function NewItemForm() {
 					type='number'
 					required
 					value={zip}
-					onChange={(event) => setZip(event.target.value)}
+					onChange={(e) => setZip(e.target.value)}
 				/>
-				<button type="submit">Submit Post</button>
+				<button type='submit'>Submit Post</button>
 			</form>
 		</div>
 	);
-}
+};
 
 export default NewItemForm;

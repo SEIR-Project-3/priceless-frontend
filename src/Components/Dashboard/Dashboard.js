@@ -6,8 +6,7 @@ import API_URL from '../../config';
 import EditItem from './EditItem';
 import axios from 'axios';
 
-function Dashboard() {
-
+const Dashboard = () => {
 	const [user, setUser] = useState();
 	const [userModal, setUserModal] = useState(false);
 
@@ -17,35 +16,31 @@ function Dashboard() {
 
 	const id = localStorage.getItem('userId');
 
-	const getUser = async () => {
+	const getUser = async (next) => {
 		try {
 			const res = await axios.get(`${API_URL}/api/user/${id}`);
 			setUser(res.data);
-			console.log(res.data);
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
 	useEffect(() => {
 		getUser();
-	},[]);
+	}, []);
 
-	const getItems = async () => {
+	const getItems = async (next) => {
 		try {
 			const res = await axios.get(`${API_URL}/api/items/user/${id}`);
 			setItems(res.data);
-			console.log(res);
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
 	useEffect(() => {
 		getItems();
 	}, []);
-
-	console.log(items);
 
 	return (
 		<div>
@@ -76,9 +71,15 @@ function Dashboard() {
 				{modal && <EditItem item={activeItem} setModal={setModal} />}
 
 				{/* Display modal for editing user info */}
-				{userModal && <Preferences user={user} setUser={setUser} setUserModal={setUserModal} />}
+				{userModal && (
+					<Preferences
+						user={user}
+						setUser={setUser}
+						setUserModal={setUserModal}
+					/>
+				)}
 			</div>
 		</div>
 	);
-}
+};
 export default Dashboard;

@@ -4,8 +4,6 @@ import axios from 'axios';
 import API_URL from '../../config';
 
 const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
-
-	console.log(user);
 	const [password, setPassword] = useState();
 	const [cPass, setCPass] = useState();
 
@@ -22,7 +20,7 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 	};
 
 	// PUT axios() request to edit user info
-	const handleSubmit = async (evt) => {
+	const handleSubmit = async (evt, next) => {
 		evt.preventDefault();
 		try {
 			// Check if password match confirm password
@@ -33,10 +31,9 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 				});
 				setUser(res.data);
 				setUserModal(false);
-				console.log(res);
 			}
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	};
 
@@ -44,8 +41,7 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 		const verify = window.confirm('Are you sure you want to delete?');
 		if (verify) {
 			try {
-				const res = axios.delete(`${API_URL}/api/items/user/${id}`);
-				const response = await axios.delete(`${API_URL}/api/user/${id}`);
+				const res = await axios.delete(`${API_URL}/api/user/${id}`);
 				setUserModal(false);
 				history.push('/home');
 				localStorage.clear();
@@ -54,36 +50,30 @@ const Preferences = ({ match, user, setUser, setUserModal, setLoggedIn }) => {
 				console.log(error);
 			}
 		}
-	}
-	
+	};
+
 	return (
 		<div>
-			<section classname='modal-container'>
+			<section className='modal-container'>
 				<div className='modal-container__child'>
 					<h2 className='header'>Editing User</h2>
 					<form onSubmit={handleSubmit}>
 						<label htmlFor=''>
 							<p>New Password</p>
-							<input
-								type='password'
-								onChange={handlePasswordField}
-							/>
+							<input type='password' onChange={handlePasswordField} />
 						</label>
 						<label htmlFor=''>
 							<p>Confirm Password</p>
-							<input
-								type='password'
-								onChange={handleCPasswordField}
-							/>
+							<input type='password' onChange={handleCPasswordField} />
 						</label>
 						<button onClick={(e) => setUserModal(false)}>Cancel</button>
 						<button type='submit'>Submit</button>
 					</form>
-					{/* <button onClick={handleDelete}>Delete Acount</button> */}
+					<button onClick={handleDelete}>Delete Account</button>
 				</div>
 			</section>
 		</div>
 	);
-}
+};
 
 export default Preferences;
